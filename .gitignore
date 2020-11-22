@@ -1,3 +1,7 @@
+# Custom Git Ignore
+test
+msn-backend/images/
+
 # Logs
 logs
 *.log
