@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Importing Angular Material
 import {MatInputModule} from '@angular/material/input';
@@ -20,6 +20,10 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { RouterModule } from '@angular/router';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
+
 // import { PostsService } from './posts/posts.service';
 
 @NgModule({
@@ -27,11 +31,14 @@ import { RouterModule } from '@angular/router';
     AppComponent,
     PostCreateComponent,
     HeaderComponent,
-    PostListComponent
+    PostListComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -46,7 +53,7 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ],
   providers: [
-    // PostsService
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}  // multi: true, because we can have multiple interceptors
   ],
   bootstrap: [AppComponent]
 })
