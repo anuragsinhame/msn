@@ -49,6 +49,8 @@ export class AuthService{
         this.router.navigate(['/']);
         // console.log('LoggedIn', token);
       }
+    }, error => {
+      this.authStatusListener.next(false);
     });
   }
 

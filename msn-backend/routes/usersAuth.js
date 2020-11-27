@@ -28,7 +28,7 @@ router.post('/signup', (req, res, next) => {
   .catch( (err) => {
     console.log('Connection Failed');
     res.status(500).json({
-      error: err
+      message: 'Invalid Credentials'
     });
   });
   });
@@ -40,7 +40,7 @@ router.post('/login', (req, res, next) => {
   .then(user => {
     if(!user){
       return res.status(401).json({
-        message: 'Auth Failed'
+        message: 'Invalid Credentials'
       });
     }
     // copying user data to another variable to access it later in next 'then'
@@ -53,7 +53,7 @@ router.post('/login', (req, res, next) => {
     // if the 'result' is not true i.e. incorrect creds
     if(!result){
       return res.status(401).json({
-        message: 'Auth Failed'
+        message: 'Invalid Credentials'
       });
     }
     // if creds are correct,create JWT - JSON Web Token
@@ -72,7 +72,7 @@ router.post('/login', (req, res, next) => {
   // any other error
   .catch(err => {
     return res.status(401).json({
-      message: 'Auth Failed'
+      message: 'You are not authenticated'
     });
   })
 });

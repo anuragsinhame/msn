@@ -53,6 +53,11 @@ router.post(
           id: createdPost._id     // as we need id, not _id, so here we can overwrite the copied object
         }
       });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Post Creation failed'
+      });
     });
   });
 
@@ -82,6 +87,11 @@ router.put(
       }else{
         res.status(401).json({ message: "Not Authorized!" });
       }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Couldn\'t update post'
+      });
     });
   });
 
@@ -122,6 +132,11 @@ router.get('', (req, res) => {
         posts: fetchedPosts,
         maxPosts: count
       });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: 'Fetching Post failed'
+      });
     });
 });
 
@@ -132,6 +147,11 @@ router.get('/:id', (req, res, next) => {
     } else {
       res.status(404).json({ message: "Post Not Found!!" })
     }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Fetching Post failed'
+    });
   });
 });
 
@@ -146,8 +166,10 @@ router.delete('/:id', checkAuth, (req, res, next) => {
       }
     })
     .catch(err => {
-      console.log('Some Error Occurred in deleting the post');
-    })
+      res.status(500).json({
+        message: 'Fetching Post failed'
+      });
+    });
 });
 
 module.exports = router;
