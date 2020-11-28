@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
   try{
     // keep the new header in lower case
     const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, 'this_is_the_secret_key');
+    const decodedToken = jwt.verify(token, process.env.JWT_KEY);
     // Adding a new field to reques, so that we can access the decoded token data in other modules
     req.userData = {
       // below are the fields, which were used to create the token => in userAuth.js
